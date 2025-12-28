@@ -24,8 +24,11 @@ Advanced pattern recognition library.
 ### 3. Data Layer (`data/`)
 Lightweight client for fetching market bars from the ingestion service.
 
-### 4. MCP Layer (`mcp_server/`)
-Exposes tools for discovery, indicator calculation, and pattern detection to LLM agents.
+### 4. Server Layer (`server/`)
+Exposes tools for discovery, indicator calculation, and pattern detection via REST and MCP.
+- `server.py`: Unified API server.
+- `indicators_tool.py`: Indicator tool logic.
+- `candlestick_tool.py`: Candlestick detection tool logic.
 
 ## Supported Patterns
 
@@ -50,10 +53,32 @@ Exposes tools for discovery, indicator calculation, and pattern detection to LLM
 pip install -r requirements.txt
 
 # Run MCP Server
-python -m mcp_server.server
+# Run Unified Server (REST API + MCP)
+python main.py server
+
+# Run MCP Server (Stdio Mode)
+python main.py mcp-server
 ```
 
-## Usage
+## REST API Usage
+
+The unified server runs on port 8001 by default. Documentation is available at `http://localhost:8001/docs`.
+
+### Endpoints
+
+- `GET /indicators` - List available indicators
+- `POST /indicators/calculations` - Compute indicators for a ticker
+- `GET /candlesticks` - List available candlestick patterns
+- `POST /candlesticks/detections` - Detect patterns for a ticker
+- `GET /bars/{ticker}` - Fetch raw market data
+
+### Example Request
+
+```bash
+curl -X POST http://localhost:8001/indicators/calculations \
+  -H "Content-Type: application/json" \
+  -d '{"ticker": "SPY", "indicators": {"rsi": {"length": 14}}, "limit": 100}'
+
 
 ### Local Python Example
 ```python

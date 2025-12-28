@@ -7,3 +7,5 @@ pydantic
 pytest
 respx
 cachetools
+fastapi
+uvicorn[standard]

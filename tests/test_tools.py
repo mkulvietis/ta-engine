@@ -6,9 +6,9 @@ import os
 # Add ta-engine directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from mcp_server.tools import fetch_bars_tool
+from server.indicators_tool import fetch_bars_tool
 
-@patch("mcp_server.tools.client")
+@patch("server.indicators_tool.client")
 def test_fetch_bars_tool(mock_client):
     """Test standard fetch_bars_tool usage"""
     # Setup
