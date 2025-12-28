@@ -1,0 +1,8 @@
+pandas
+pandas-ta
+numpy
+httpx
+mcp
+pydantic
+pytest
+respx
